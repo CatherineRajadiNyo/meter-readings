@@ -28,11 +28,14 @@ body {
 @layer components {
   /* Button base class */
   .btn {
-    @apply rounded-md px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer;
+    @apply rounded-md px-3 py-2 text-sm font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer transition-all duration-200 ease-linear;
   }
 
   /* Button variant classes */
   .btn-primary {
-    @apply bg-orange-800 text-white shadow-xs hover:bg-orange-700 focus-visible:outline-orange-800;
+    @apply bg-orange-800 text-white hover:bg-orange-700 focus-visible:outline-orange-800;
+  }
+  .btn-secondary {
+    @apply bg-gray-100 text-orange-800 hover:bg-gray-200 focus-visible:outline-0;
   }
 }

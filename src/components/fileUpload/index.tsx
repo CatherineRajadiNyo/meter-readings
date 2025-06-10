@@ -56,7 +56,7 @@ export default function FileUpload({ file, onChange, acceptType }: FileUploadPro
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onClick={handleClick}
-        className="border-2 border-dashed border-gray-700 p-6 rounded text-center cursor-pointer hover:border-gray-700 hover:bg-[#948979]"
+        className="border-2 border-dashed border-gray-700 p-6 rounded-md text-center cursor-pointer hover:border-gray-700 hover:bg-[#948979]"
       >
         <ArrowDownTrayIcon className="mx-auto size-6 text-gray-900" />
         <div className="text-sm text-gray-900 mt-2">

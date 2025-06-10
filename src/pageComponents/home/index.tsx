@@ -4,6 +4,7 @@ import ErrorMessage from "@/components/errorMessage";
 import FileUpload from "@/components/fileUpload";
 import { ExcelMimeType } from "@/enums/file";
 import React, { useState } from "react";
+import SqlDisplay from "./components/SqlDisplay";
 
 export default function CsvToSqlPanel() {
   const [file, setFile] = useState<File>();
@@ -98,12 +99,7 @@ export default function CsvToSqlPanel() {
           </div>
           <div className="grid grid-cols-12 gap-4">
             {sqlStatements.map((sql, index) => (
-              <pre
-                className="col-span-12 sm:col-span-6 bg-gray-100 text-black p-4 rounded overflow-x-auto whitespace-pre text-xs max-h-80"
-                key={`sql_${index}`}
-              >
-                {sql}
-              </pre>
+              <SqlDisplay key={`sql_${index}`} sql={sql} />
             ))}
           </div>
         </div>
