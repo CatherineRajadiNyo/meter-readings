@@ -71,6 +71,7 @@ export default function FileUpload({ file, onChange, acceptType }: FileUploadPro
         accept={acceptType ? acceptType.join(",") : undefined}
         onChange={handleFileChange}
         className="hidden"
+        data-testid="file-input"
       />
       <ErrorMessage message={error} className="mt-2" />
     </div>
