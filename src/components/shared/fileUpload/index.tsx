@@ -1,7 +1,7 @@
-import { ArrowDownTrayIcon } from "@heroicons/react/20/solid";
 import { useState, ChangeEvent, DragEvent, useRef } from "react";
 import ErrorMessage from "../errorMessage";
 import { AllMimeType, FileTypeMapping } from "@/constants/file";
+import { DownloadIcon } from "lucide-react";
 
 const checkFileType = (file: File, acceptType?: AllMimeType[]) => {
   if (!acceptType) return true;
@@ -15,21 +15,25 @@ interface FileUploadProps {
   file?: File;
   onChange: (file?: File) => void;
   acceptType?: AllMimeType[];
+  setErrorMessage?: (message?: string) => void;
 }
 
-export default function FileUpload({ file, onChange, acceptType }: FileUploadProps) {
-  const [error, setError] = useState<string | null>(null);
-
+export default function FileUpload({
+  file,
+  onChange,
+  acceptType,
+  setErrorMessage,
+}: FileUploadProps) {
   const ref = useRef<HTMLInputElement>(null);
 
   const handleFile = (file: File) => {
     const isValidFileType = checkFileType(file, acceptType);
     if (isValidFileType) {
       onChange(file);
-      setError(null);
+      setErrorMessage?.(undefined);
     } else {
       onChange(undefined);
-      setError("Please select a valid file.");
+      setErrorMessage?.("Please select a valid file.");
     }
   };
 
@@ -56,13 +60,15 @@ export default function FileUpload({ file, onChange, acceptType }: FileUploadPro
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onClick={handleClick}
-        className="border-2 border-dashed border-gray-700 p-6 rounded-md text-center cursor-pointer hover:border-gray-700 hover:bg-[#948979]"
+        className="border-2 border-dashed border-gray-700 p-6 rounded-md text-center cursor-pointer hover:border-gray-700 hover:bg-gray-100"
       >
-        <ArrowDownTrayIcon className="mx-auto size-6 text-gray-900" />
+        <DownloadIcon className="mx-auto size-6 text-gray-900" />
         <div className="text-sm text-gray-900 mt-2">
           {file
             ? file.name
-            : `Drag & drop a ${acceptType?.map((el) => FileTypeMapping[el]).join(", ") ?? ""} file here, or click to browse`}
+            : `Drag & drop a ${
+                acceptType?.map((el) => FileTypeMapping[el]).join(", ") ?? ""
+              } file here, or click to browse`}
         </div>
       </div>
       <input
@@ -73,7 +79,6 @@ export default function FileUpload({ file, onChange, acceptType }: FileUploadPro
         className="hidden"
         data-testid="file-input"
       />
-      <ErrorMessage message={error} className="mt-2" />
     </div>
   );
 }
