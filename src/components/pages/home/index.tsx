@@ -1,6 +1,5 @@
 "use client";
 
-import ErrorMessage from "@/components/shared/errorMessage";
 import FileUpload from "@/components/shared/fileUpload";
 import { ExcelMimeType } from "@/enums/file";
 import React, { useState } from "react";
@@ -35,7 +34,7 @@ export default function CsvToSqlPanel() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const response = await fetch("/api/process-csv", {
+      const response = await fetch("/api/nem12/process", {
         method: "POST",
         body: formData,
       });
