@@ -1,4 +1,4 @@
-import CsvToSqlPanel from "@/pageComponents/home";
+import CsvToSqlPanel from '@/components/pages/home';
 
 export default function Home() {
   return (

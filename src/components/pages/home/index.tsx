@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import ErrorMessage from "@/components/errorMessage";
-import FileUpload from "@/components/fileUpload";
-import { ExcelMimeType } from "@/enums/file";
-import React, { useState } from "react";
-import SqlDisplay from "./components/SqlDisplay";
+import ErrorMessage from '@/components/shared/errorMessage';
+import FileUpload from '@/components/shared/fileUpload';
+import { ExcelMimeType } from '@/enums/file';
+import React, { useState } from 'react';
+import SqlDisplay from './components/SqlDisplay';
 
 export default function CsvToSqlPanel() {
   const [file, setFile] = useState<File>();
@@ -27,40 +27,40 @@ export default function CsvToSqlPanel() {
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
-      const response = await fetch("/api/process-csv", {
-        method: "POST",
+      formData.append('file', file);
+      const response = await fetch('/api/process-csv', {
+        method: 'POST',
         body: formData,
       });
 
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
-      if (!reader) throw new Error("No reader available");
+      if (!reader) throw new Error('No reader available');
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         const chunk = decoder.decode(value);
-        const lines = chunk.split("\n");
+        const lines = chunk.split('\n');
 
         for (const line of lines) {
-          if (line.startsWith("data: ")) {
+          if (line.startsWith('data: ')) {
             const data = JSON.parse(line.slice(6));
 
             switch (data.type) {
-              case "progress":
+              case 'progress':
                 setProgress({
                   totalBatches: data.totalBatches,
                   totalReadings: data.totalReadings,
                 });
                 setSqlStatements((prev) => [...prev, data.sql]);
                 break;
-              case "complete":
-                console.log("Processing complete!", data);
+              case 'complete':
+                console.log('Processing complete!', data);
                 break;
-              case "error":
+              case 'error':
                 setError(data.error);
                 break;
             }
@@ -68,7 +68,7 @@ export default function CsvToSqlPanel() {
         }
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to process file");
+      setError(err instanceof Error ? err.message : 'Failed to process file');
     } finally {
       setIsProcessing(false);
     }
@@ -81,7 +81,7 @@ export default function CsvToSqlPanel() {
           <FileUpload file={file} onChange={handleFileChange} acceptType={[ExcelMimeType.CSV]} />
 
           <button type="submit" className="btn btn-primary" disabled={!file || isProcessing}>
-            {isProcessing ? "Processing..." : "Submit"}
+            {isProcessing ? 'Processing...' : 'Submit'}
           </button>
         </form>
 
