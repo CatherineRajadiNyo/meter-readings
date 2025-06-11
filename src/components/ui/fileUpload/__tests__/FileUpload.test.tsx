@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import FileUpload from "../index";
 import { ExcelMimeType } from "@/enums/file";
@@ -68,7 +68,14 @@ describe("FileUpload", () => {
 
   it("shows error for invalid file type", async () => {
     const file = new File(["test"], "test.txt", { type: "text/plain" });
-    render(<FileUpload onChange={mockOnChange} acceptType={[ExcelMimeType.CSV]} />);
+    const mockSetErrorMessage = jest.fn();
+    render(
+      <FileUpload
+        onChange={mockOnChange}
+        acceptType={[ExcelMimeType.CSV]}
+        setErrorMessage={mockSetErrorMessage}
+      />
+    );
 
     const dropZone = screen.getByText(/Drag & drop a CSV file here/i).parentElement;
     if (!dropZone) throw new Error("Drop zone not found");
@@ -79,15 +86,24 @@ describe("FileUpload", () => {
       },
     });
 
-    expect(screen.getByText("Please select a valid file.")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(mockSetErrorMessage).toHaveBeenCalledWith("Please select a valid file.");
+    });
     expect(mockOnChange).toHaveBeenCalledWith(undefined);
   });
 
   it("clears error when valid file is uploaded after invalid file", async () => {
     const invalidFile = new File(["test"], "test.txt", { type: "text/plain" });
     const validFile = new File(["test"], "test.csv", { type: ExcelMimeType.CSV });
+    const mockSetErrorMessage = jest.fn();
 
-    render(<FileUpload onChange={mockOnChange} acceptType={[ExcelMimeType.CSV]} />);
+    render(
+      <FileUpload
+        onChange={mockOnChange}
+        acceptType={[ExcelMimeType.CSV]}
+        setErrorMessage={mockSetErrorMessage}
+      />
+    );
 
     const dropZone = screen.getByText(/Drag & drop a CSV file here/i).parentElement;
     if (!dropZone) throw new Error("Drop zone not found");
@@ -99,7 +115,9 @@ describe("FileUpload", () => {
       },
     });
 
-    expect(screen.getByText("Please select a valid file.")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(mockSetErrorMessage).toHaveBeenCalledWith("Please select a valid file.");
+    });
     expect(mockOnChange).toHaveBeenCalledWith(undefined);
 
     // Then upload valid file
@@ -109,7 +127,9 @@ describe("FileUpload", () => {
       },
     });
 
-    expect(screen.queryByText("Please select a valid file.")).not.toBeInTheDocument();
+    await waitFor(() => {
+      expect(mockSetErrorMessage).toHaveBeenCalledWith(undefined);
+    });
     expect(mockOnChange).toHaveBeenLastCalledWith(validFile);
   });
 });

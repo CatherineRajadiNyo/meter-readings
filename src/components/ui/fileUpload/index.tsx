@@ -1,5 +1,4 @@
-import { useState, ChangeEvent, DragEvent, useRef } from "react";
-import ErrorMessage from "../errorMessage";
+import { ChangeEvent, DragEvent, useRef } from "react";
 import { AllMimeType, FileTypeMapping } from "@/constants/file";
 import { DownloadIcon } from "lucide-react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import FileUpload from "@/components/shared/fileUpload";
+import FileUpload from "@/components/ui/fileUpload";
 import { ExcelMimeType } from "@/enums/file";
 import React, { useState } from "react";
 import SqlDisplay from "./components/SqlDisplay";
