@@ -1,14 +1,14 @@
 // Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 // Mock next/router
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter() {
     return {
-      route: '/',
-      pathname: '',
+      route: "/",
+      pathname: "",
       query: {},
-      asPath: '',
+      asPath: "",
       push: jest.fn(),
       replace: jest.fn(),
     };
@@ -16,7 +16,7 @@ jest.mock('next/router', () => ({
 }));
 
 // Mock next/navigation
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter() {
     return {
       push: jest.fn(),
@@ -25,7 +25,7 @@ jest.mock('next/navigation', () => ({
     };
   },
   usePathname() {
-    return '';
+    return "";
   },
   useSearchParams() {
     return new URLSearchParams();
