@@ -1,12 +1,12 @@
 "use client";
 
-import FileUpload from "@/components/ui/fileUpload";
+import FileUpload from "@/components/ui/FileUpload";
 import { ExcelMimeType } from "@/enums/file";
 import React, { useState } from "react";
 import SqlDisplay from "./components/SqlDisplay";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { Loader2Icon } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert";
 import clsx from "clsx";
 
 export default function CsvToSqlPanel() {
