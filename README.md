@@ -39,7 +39,7 @@ A Next.js application for processing and storing NEM12 meter data files. This sy
 - Content-Type: `text/event-stream`
 - Stream of progress updates and processing results
 
-### Testing
+## Testing
 
 Run tests:
 
@@ -54,7 +54,7 @@ yarn test:watch
 yarn test:coverage
 ```
 
-### Building
+## Building
 
 1. Build for production:
    ```bash
