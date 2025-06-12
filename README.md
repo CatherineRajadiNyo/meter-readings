@@ -232,3 +232,29 @@ src/
 3. Implement comprehensive test coverage
 4. Add performance testing for file processing
 5. Write more descriptive commit messages
+
+### Alternative approaches or technologies
+
+For the main framework, I considered various options but ultimately chose Next.js because it provides a comprehensive full-stack solution that I'm familiar with. This familiarity, combined with Next.js's built-in features like server-side rendering, API routes, and Edge Runtime support, made it an ideal choice for developing a robust meter readings processing system.
+
+Initially, I considered implementing a traditional synchronous approach using plain fetch API for file processing. However, I realized this approach would present several significant challenges:
+
+- Large file uploads would block the main thread, potentially causing the browser to become unresponsive
+- Users would have no visibility into the processing progress, leading to a poor user experience
+- The server would need to hold the entire file in memory, which could cause memory issues with large files
+- There would be no way to handle timeouts or connection issues gracefully
+- The user would have to wait for the entire process to complete before receiving any feedback
+
+These limitations led me to implement a streaming solution instead, which provides real-time progress updates and better handles large file processing. This approach allows for:
+
+- Incremental processing of the file
+- Immediate feedback to users about the processing status
+- Better memory management on both client and server
+- More resilient handling of network issues
+- Improved user experience with real-time progress indicators
+
+For the UI component library, I initially considered Material-UI (MUI) and Ant Design (ANTD) as they are both mature and feature-rich options. However, I ultimately chose shadcn/ui with Tailwind CSS because it offers a more lightweight solution while maintaining high-quality, accessible components. This combination provides better performance and more flexibility in customization without the overhead of a full-featured component library.
+
+Regarding testing frameworks, while Jest was selected for this project, I also evaluated Vitest and Playwright as viable alternatives. Vitest offers faster test execution and better ESM support, while Playwright provides more reliable end-to-end testing capabilities. The choice of Jest was made based on its maturity, extensive ecosystem, and seamless integration with the Next.js framework.
+
+For deployment, it is important to choose a hosting platforms that support streaming responses, which is crucial for real-time progress updates during file processing. Therefore, I chose Vercel as the deployment platform. Vercel not only provides excellent support for streaming responses but also offers quick integration with Next.js applications and a more streamlined deployment process. This decision was essential for maintaining the real-time feedback feature that's critical for the user experience when processing large NEM12 files.
