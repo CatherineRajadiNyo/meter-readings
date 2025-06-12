@@ -1,5 +1,17 @@
+# Config files
+.lintstagedrc.json
+.prettierrc
+.eslintrc.js
+jest.config.mjs
+next.config.ts
+
+# Build and dependencies
 node_modules
 .next
 out
 build
-dist 
+dist
+coverage
+
+# Cache
+.cache 

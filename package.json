@@ -14,7 +14,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "precommit": "yarn lint:custom && tsc --noEmit --skipLibCheck"
+    "precommit": "yarn lint:custom && tsc --noEmit --skipLibCheck",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -44,8 +45,10 @@
     "eslint-config-next": "15.3.3",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
+    "lint-staged": "^16.1.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5"

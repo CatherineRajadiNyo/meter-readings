@@ -1,4 +1,8 @@
-#!/bin/sh
-# husky pre-commit hook (runs yarn precommit (which runs ESLint and TypeScript checks) before committing)
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-yarn precommit 
+# Run lint-staged
+npx lint-staged
+
+# Run type checking
+yarn tsc --noEmit --skipLibCheck
