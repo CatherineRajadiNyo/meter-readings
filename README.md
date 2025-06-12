@@ -109,9 +109,7 @@ Check out the [assignment here](https://flo-energy.vercel.app/)
    - Great developer experience with IntelliSense
    - Seamless integration with shadcn/ui
 
-### Code Design & Structure
-
-## Project Structure
+### Project Structure
 
 ```
 src/
@@ -166,7 +164,7 @@ src/
     └── e2e/             # End-to-end tests
 ```
 
-### Design for Readability & Maintainability
+### Readability & Maintainability
 
 1. **Clear Separation of Concerns**
 
