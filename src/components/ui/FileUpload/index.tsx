@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent, DragEvent, useRef } from "react";
 import { AllMimeType, FileTypeMapping } from "@/constants/file";
 import { DownloadIcon } from "lucide-react";

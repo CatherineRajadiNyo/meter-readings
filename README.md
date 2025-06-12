@@ -203,9 +203,6 @@ src/
 
 1. **Design Patterns**
 
-   - Repository Pattern for data access
-   - Factory Pattern for object creation
-   - Strategy Pattern for different processing strategies
    - Observer Pattern for real-time updates (Server Side - Subject, Client Side - Observer)
 
 2. **Coding Conventions**
@@ -231,6 +228,7 @@ src/
 ### Areas for Improvement
 
 1. Add proper form validation
-2. Implement comprehensive test coverage
-3. Add performance testing for file processing
-4. Write more descriptive commit messages
+2. Add notification/toast for better feedback to improve UX
+3. Implement comprehensive test coverage
+4. Add performance testing for file processing
+5. Write more descriptive commit messages

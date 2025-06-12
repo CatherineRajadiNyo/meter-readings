@@ -44,31 +44,40 @@ export default function CsvToSqlPanel() {
 
       if (!reader) throw new Error("No reader available");
 
+      let buffer = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split("\n");
+        buffer += decoder.decode(value);
+        const lines = buffer.split("\n");
+
+        // Keep the last line in the buffer if it's incomplete
+        buffer = lines.pop() || "";
 
         for (const line of lines) {
           if (line.startsWith("data: ")) {
-            const data = JSON.parse(line.slice(6));
+            try {
+              const data = JSON.parse(line.slice(6));
 
-            switch (data.type) {
-              case "progress":
-                setProgress({
-                  totalBatches: data.totalBatches,
-                  totalReadings: data.totalReadings,
-                });
-                setSqlStatements((prev) => [...prev, data.sql]);
-                break;
-              case "complete":
-                console.log("Processing complete!", data);
-                break;
-              case "error":
-                setErrorMessage(data.error);
-                break;
+              switch (data.type) {
+                case "progress":
+                  setProgress({
+                    totalBatches: data.totalBatches,
+                    totalReadings: data.totalReadings,
+                  });
+                  setSqlStatements((prev) => [...prev, data.sql]);
+                  break;
+                case "complete":
+                  console.log("Processing complete!", data);
+                  break;
+                case "error":
+                  setErrorMessage(data.error);
+                  break;
+              }
+            } catch (parseError) {
+              console.error("Error parsing JSON:", parseError, "Line:", line);
+              setErrorMessage("Error parsing server response");
             }
           }
         }
@@ -85,12 +94,9 @@ export default function CsvToSqlPanel() {
       <div className="col-span-12 sm:col-span-6 sm:col-start-4">
         <Alert
           variant="destructive"
-          className={clsx(
-            "mb-0 h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out border-red-500",
-            {
-              "mb-4 h-fit opacity-100": errorMessage,
-            }
-          )}
+          className={clsx("mb-0 h-0 opacity-0", {
+            "mb-4 h-fit opacity-100": errorMessage,
+          })}
         >
           <AlertTitle>Error:</AlertTitle>
           <AlertDescription>{errorMessage}</AlertDescription>
